@@ -1,5 +1,6 @@
 // server.cpp
 #include "db_manager.h"
+#include "sha384.h"
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -25,13 +26,6 @@
 
 const int PORT = 12345;           // Порт, на котором слушает сервер
 const int BUFFER_SIZE = 4096;     // Размер буфера для приема данных
-
-// Заглушка для хеш-функции SHA-384
-// В реальном проекте нужно подключить OpenSSL и вычислять настоящий хеш
-// Здесь для демонстрации просто добавляем суффикс "_dummyhash"
-std::string sha384_hash(const std::string& input) {
-    return input + "_dummyhash";
-}
 
 // Обработка одного клиентского соединения
 // Читает команду, вызывает методы DBManager, отправляет ответ
