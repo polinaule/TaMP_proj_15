@@ -65,3 +65,17 @@ test_images/output/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Qt client build artifacts
+client/Makefile
+client/Makefile.Debug
+client/Makefile.Release
+client/.qmake.stash
+client/release/
+client/debug/
+client/*.o
+client/moc_*.cpp
+client/moc_*.h
+client/ui_*.h
+client/qrc_*.cpp
+client/client.exe
