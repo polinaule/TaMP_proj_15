@@ -1,0 +1,14 @@
+.git
+.gitignore
+README.md
+client/
+docs/
+*.db
+*.exe
+release/
+debug/
+*.o
+*.tmp
+*.log
+.vscode/
+.idea/
