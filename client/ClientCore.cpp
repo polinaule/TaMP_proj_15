@@ -45,3 +45,31 @@ void ClientCore::onReadyRead() {
 void ClientCore::onError(QAbstractSocket::SocketError) {
     emit errorOccurred(socket.errorString());
 }
+
+void ClientCore::setCurrentRole(const QString& role) { 
+    currentRole = role; 
+}
+
+void ClientCore::setCurrentLogin(const QString& login) { 
+    currentLogin = login; 
+}
+
+QString ClientCore::getCurrentRole() const { 
+    return currentRole; 
+}
+
+QString ClientCore::getCurrentLogin() const { 
+    return currentLogin; 
+}
+
+bool ClientCore::isAdmin() const { 
+    return currentRole == "admin"; 
+}
+
+void ClientCore::setCurrentPassword(const QString& password) {
+    currentPassword = password;
+}
+
+QString ClientCore::getCurrentPassword() const {
+    return currentPassword;
+}

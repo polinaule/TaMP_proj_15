@@ -2,6 +2,8 @@
 #include "db_manager.h"
 #include <iostream>
 #include <cstring>
+#include <vector>
+#include <tuple>
 
 //  онструктор: инициализируем указатель базы данных нулем, флаг закрыт
 DBManager::DBManager() : db(nullptr), is_open(false) {}
@@ -90,4 +92,67 @@ bool DBManager::loginUser(const std::string& login, const std::string& password_
     }
     sqlite3_finalize(stmt);
     return found;
+}
+
+std::vector<std::tuple<int, std::string, std::string>> DBManager::getAllUsers() {
+    std::vector<std::tuple<int, std::string, std::string>> users;
+    if (!is_open) return users;
+    std::string sql = "SELECT id, login, role FROM users ORDER BY id;";
+    sqlite3_stmt* stmt;
+    if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        return users;
+    }
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        int id = sqlite3_column_int(stmt, 0);
+        std::string login = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        std::string role = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        users.push_back({ id, login, role });
+    }
+    sqlite3_finalize(stmt);
+    return users;
+}
+
+bool DBManager::deleteUser(const std::string& login) {
+    if (!is_open) return false;
+    std::string sql = "DELETE FROM users WHERE login = ?;";
+    sqlite3_stmt* stmt;
+    if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        return false;
+    }
+    sqlite3_bind_text(stmt, 1, login.c_str(), -1, SQLITE_STATIC);
+    int rc = sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    return rc == SQLITE_DONE;
+}
+
+bool DBManager::setUserRole(const std::string& login, const std::string& new_role) {
+    if (!is_open) return false;
+    std::string sql = "UPDATE users SET role = ? WHERE login = ?;";
+    sqlite3_stmt* stmt;
+    if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        return false;
+    }
+    sqlite3_bind_text(stmt, 1, new_role.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 2, login.c_str(), -1, SQLITE_STATIC);
+    int rc = sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    return rc == SQLITE_DONE;
+}
+
+bool DBManager::isAdmin(const std::string& login, const std::string& password_hash) {
+    if (!is_open) return false;
+    std::string sql = "SELECT role FROM users WHERE login = ? AND password_hash = ?;";
+    sqlite3_stmt* stmt;
+    if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        return false;
+    }
+    sqlite3_bind_text(stmt, 1, login.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 2, password_hash.c_str(), -1, SQLITE_STATIC);
+    bool is_admin = false;
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        std::string role = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        is_admin = (role == "admin");
+    }
+    sqlite3_finalize(stmt);
+    return is_admin;
 }

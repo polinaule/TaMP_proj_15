@@ -4,6 +4,8 @@
 
 #include <string>
 #include <sqlite3.h>
+#include <tuple>
+#include <vector>
 
 // Класс-синглтон для работы с базой данных SQLite
 // Обеспечивает регистрацию и проверку логинов/паролей
@@ -28,6 +30,12 @@ public:
 
     // Закрытие соединения с базой данных
     ~DBManager();
+
+    // Роли и админ-функции
+    std::vector<std::tuple<int, std::string, std::string>> getAllUsers();
+    bool deleteUser(const std::string& login);
+    bool setUserRole(const std::string& login, const std::string& new_role);
+    bool isAdmin(const std::string& login, const std::string& password_hash);
 
 private:
     DBManager();                              // Приватный конструктор

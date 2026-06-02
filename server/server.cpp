@@ -13,6 +13,7 @@
 #include <sstream>
 #include <cmath>
 #include <iomanip>
+#include <tuple>
 
 // Раздельная компиляция для Windows и POSIX (Linux/macOS)
 #ifdef _WIN32
@@ -141,6 +142,73 @@ void handle_client(SOCKET client_socket) {
     }
     else if (command == "STEGANO_EXTRACT") {
         response = "OK Extracted\n";
+    }
+    else if (command == "ADMIN_GET_USERS") {
+        std::string admin_login, admin_pass;
+        if (!(iss >> admin_login >> admin_pass)) {
+            response = "ERROR Usage: ADMIN_GET_USERS login password\n";
+        }
+        else {
+            std::string pass_hash = sha384_hash(admin_pass);
+            if (DBManager::getInstance().isAdmin(admin_login, pass_hash)) {
+                auto users = DBManager::getInstance().getAllUsers();
+                response = "OK Users:\n";
+                for (const auto& u : users) {
+                    response += std::to_string(std::get<0>(u)) + " " + std::get<1>(u) + " " + std::get<2>(u) + "\n";
+                }
+            }
+            else {
+                response = "ERROR Access denied or invalid credentials\n";
+            }
+        }
+    }
+    else if (command == "ADMIN_DELETE_USER") {
+        std::string admin_login, admin_pass, target_login;
+        if (!(iss >> admin_login >> admin_pass >> target_login)) {
+            response = "ERROR Usage: ADMIN_DELETE_USER admin_login admin_pass target_login\n";
+        }
+        else {
+            std::string pass_hash = sha384_hash(admin_pass);
+            if (DBManager::getInstance().isAdmin(admin_login, pass_hash)) {
+                if (target_login == admin_login) {
+                    response = "ERROR Cannot delete yourself\n";
+                }
+                else if (DBManager::getInstance().deleteUser(target_login)) {
+                    response = "OK User " + target_login + " deleted\n";
+                }
+                else {
+                    response = "ERROR User not found or delete failed\n";
+                }
+            }
+            else {
+                response = "ERROR Access denied or invalid credentials\n";
+            }
+        }
+    }
+    else if (command == "ADMIN_SET_ROLE") {
+        std::string admin_login, admin_pass, target_login, new_role;
+        if (!(iss >> admin_login >> admin_pass >> target_login >> new_role)) {
+            response = "ERROR Usage: ADMIN_SET_ROLE admin_login admin_pass target_login new_role\n";
+        }
+        else {
+            if (new_role != "user" && new_role != "admin") {
+                response = "ERROR Role must be 'user' or 'admin'\n";
+            }
+            else {
+                std::string pass_hash = sha384_hash(admin_pass);
+                if (DBManager::getInstance().isAdmin(admin_login, pass_hash)) {
+                    if (DBManager::getInstance().setUserRole(target_login, new_role)) {
+                        response = "OK Role of " + target_login + " set to " + new_role + "\n";
+                    }
+                    else {
+                        response = "ERROR User not found or update failed\n";
+                    }
+                }
+                else {
+                    response = "ERROR Access denied or invalid credentials\n";
+                }
+            }
+        }
     }
     else {
         response = "ERROR Unknown command\n";

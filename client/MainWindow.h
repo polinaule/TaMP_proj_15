@@ -18,6 +18,7 @@ private slots:
     void sendCommand();
     void onResponse(const QString& response);
     void onError(const QString& error);
+    void openAdminDialog();
 
 private:
     QTableWidget *historyTable;
@@ -25,6 +26,8 @@ private:
     QLineEdit *commandEdit;
     QPushButton *sendButton;
     void addHistoryEntry(const QString& command, const QString& response);
+    QPushButton* adminButton;
+    void addAdminButton();
 };
 
 #endif

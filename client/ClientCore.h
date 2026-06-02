@@ -11,6 +11,13 @@ public:
     static ClientCore& getInstance();
     void sendCommand(const QString& cmd);
     QString getLastResponse() const { return lastResponse; }
+    void setCurrentRole(const QString& role);
+    void setCurrentLogin(const QString& login);
+    QString getCurrentRole() const;
+    QString getCurrentLogin() const;
+    bool isAdmin() const;
+    void setCurrentPassword(const QString& password);
+    QString getCurrentPassword() const;
 
 signals:
     void responseReceived(const QString& response);
@@ -27,6 +34,9 @@ private:
     void onConnected();
     void onReadyRead();
     void onError(QAbstractSocket::SocketError);
+    QString currentRole;
+    QString currentLogin;
+    QString currentPassword;
 };
 
 #endif
