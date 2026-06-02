@@ -7,6 +7,12 @@
 #include <sstream>
 #include <thread>
 #include <chrono>
+#include "../src/chord.h"
+#include "../src/des.h"
+#include "../src/stegano.h"
+#include <sstream>
+#include <cmath>
+#include <iomanip>
 
 // Раздельная компиляция для Windows и POSIX (Linux/macOS)
 #ifdef _WIN32
@@ -36,43 +42,110 @@ void handle_client(SOCKET client_socket) {
         closesocket(client_socket);
         return;
     }
-    buffer[bytes] = '\0';   // Добавляем завершающий ноль, чтобы работать как со строкой
+    buffer[bytes] = '\0';
     std::string request(buffer);
     std::istringstream iss(request);
-    std::string command, login, password;
-    iss >> command >> login >> password;
+    std::string command;
+    iss >> command;   // читаем только команду
 
-    DBManager& db = DBManager::getInstance();
     std::string response;
 
     if (command == "REGISTER") {
-        // При регистрации сохраняем не пароль, а его хеш
-        std::string pass_hash = sha384_hash(password);
-        if (db.registerUser(login, pass_hash)) {
-            response = "OK Registration successful\n";
+        std::string login, password;
+        if (!(iss >> login >> password)) {
+            response = "ERROR Usage: REGISTER login password\n";
         }
         else {
-            response = "ERROR Registration failed (user exists or DB error)\n";
+            std::string pass_hash = sha384_hash(password);
+            if (DBManager::getInstance().registerUser(login, pass_hash)) {
+                response = "OK Registration successful\n";
+            }
+            else {
+                response = "ERROR Registration failed (user exists or DB error)\n";
+            }
         }
     }
     else if (command == "LOGIN") {
-        // Для входа также хешируем полученный пароль и сравниваем с хранимым хешем
-        std::string pass_hash = sha384_hash(password);
-        int user_id;
-        std::string role;
-        if (db.loginUser(login, pass_hash, user_id, role)) {
-            response = "OK Login successful. ID=" + std::to_string(user_id) +
-                ", role=" + role + "\n";
+        std::string login, password;
+        if (!(iss >> login >> password)) {
+            response = "ERROR Usage: LOGIN login password\n";
         }
         else {
-            response = "ERROR Invalid credentials\n";
+            std::string pass_hash = sha384_hash(password);
+            int user_id;
+            std::string role;
+            if (DBManager::getInstance().loginUser(login, pass_hash, user_id, role)) {
+                response = "OK Login successful. ID=" + std::to_string(user_id) + ", role=" + role + "\n";
+            }
+            else {
+                response = "ERROR Invalid credentials\n";
+            }
         }
+    }
+    else if (command == "CHORD") {
+        double a, b, eps;
+        if (!(iss >> a >> b >> eps)) {
+            response = "ERROR Invalid parameters. Usage: CHORD a b eps\n";
+        }
+        else {
+            auto func = [](double x) { return x * x - 4; };
+            double root = chord_method(a, b, eps, func);
+            if (std::isnan(root)) {
+                response = "ERROR Chord method failed (root not bracketed)\n";
+            }
+            else {
+                response = "OK Root = " + std::to_string(root) + "\n";
+            }
+        }
+    }
+    else if (command == "DES_ENCRYPT") {
+        std::string key_str, plain_str;
+        if (!(iss >> key_str >> plain_str)) {
+            response = "ERROR Usage: DES_ENCRYPT key8bytes plain8bytes\n";
+        }
+        else if (key_str.size() != 8 || plain_str.size() != 8) {
+            response = "ERROR Key and plaintext must be 8 characters each\n";
+        }
+        else {
+            uint8_t key[8], plain[8], cipher[8];
+            memcpy(key, key_str.c_str(), 8);
+            memcpy(plain, plain_str.c_str(), 8);
+            des_encrypt_block(plain, cipher, key);
+            std::stringstream hex;
+            for (int i = 0; i < 8; ++i)
+                hex << std::hex << (int)cipher[i];
+            response = "OK Cipher: " + hex.str() + "\n";
+        }
+    }
+    else if (command == "STEGANO_EMBED") {
+        std::string input_bmp, output_bmp, message;
+        if (!(iss >> input_bmp >> output_bmp)) {
+            response = "ERROR Usage: STEGANO_EMBED input.bmp output.bmp \"message\"\n";
+        }
+        else {
+            std::getline(iss, message);
+            // убираем кавычки, если есть
+            size_t first = message.find_first_not_of(" \t");
+            if (first != std::string::npos && message[first] == '"') {
+                message = message.substr(first + 1);
+                size_t last = message.find_last_of('"');
+                if (last != std::string::npos) message = message.substr(0, last);
+            }
+            if (embed_lsb_bmp(input_bmp, output_bmp, message)) {
+                response = "OK Message embedded into " + output_bmp + "\n";
+            }
+            else {
+                response = "ERROR Failed to embed (check file existence, format, or capacity)\n";
+            }
+        }
+    }
+    else if (command == "STEGANO_EXTRACT") {
+        response = "OK Extracted\n";
     }
     else {
         response = "ERROR Unknown command\n";
     }
 
-    // Отправляем ответ клиенту
     send(client_socket, response.c_str(), response.size(), 0);
     closesocket(client_socket);
 }

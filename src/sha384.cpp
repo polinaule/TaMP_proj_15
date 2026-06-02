@@ -3,11 +3,12 @@
 #include <sstream>
 #include <cassert>
 #include <openssl/sha.h>
+#include <cstdint>
 
 // Вычисляет SHA-384 хеш строки, возвращает шестнадцатеричную строку
 std::string sha384_hash(const std::string& input) {
     unsigned char hash[SHA384_DIGEST_LENGTH];
-    SHA384_CTX ctx;
+    SHA512_CTX ctx;
     SHA384_Init(&ctx);
     SHA384_Update(&ctx, input.c_str(), input.size());
     SHA384_Final(hash, &ctx);
@@ -19,6 +20,7 @@ std::string sha384_hash(const std::string& input) {
 }
 
 // Unit-тест: хеш "hello" должен совпадать с эталоном
+#ifdef SHA_TEST
 int main() {
     std::string test = "hello";
     std::string expected = "59e1748777448c69de6b800d7a33bbfb9ff1b463e44354c3553bcdb9c666fa90125a3c79f90397bdf5f6a13de828684f";
@@ -27,3 +29,4 @@ int main() {
     std::cout << "SHA-384 test passed.\n";
     return 0;
 }
+#endif

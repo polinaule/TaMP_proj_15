@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <cassert>
+#include <cstdint>
 
 // Фиксированный 8-байтовый ключ для демонстрации
 static const uint8_t des_key[8] = { 0x13, 0x34, 0x57, 0x79, 0x9B, 0xBC, 0xDF, 0xF1 };
@@ -18,6 +19,7 @@ void des_decrypt_block(const uint8_t input[8], uint8_t output[8], const uint8_t 
 }
 
 // Тест: шифруем блок, потом расшифровываем, сравниваем
+#ifdef DES_TEST
 int main() {
     uint8_t plain[8] = { 'H','e','l','l','o','!','!','!' };
     uint8_t cipher[8], decrypted[8];
@@ -29,3 +31,4 @@ int main() {
     std::cout << "DES test passed.\n";
     return 0;
 }
+#endif

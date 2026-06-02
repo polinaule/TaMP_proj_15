@@ -40,6 +40,7 @@ double chord_method(double a, double b, double eps, std::function<double(double)
 }
 
 // Unit-тест: ищем корень уравнения x^2 - 4 = 0 на отрезке [1, 3] (корень x=2)
+#ifdef CHORD_TEST
 int main() {
     // Определяем функцию f(x) = x*x - 4
     auto f = [](double x) { return x * x - 4; };
@@ -52,3 +53,4 @@ int main() {
     std::cout << "Тест метода хорд пройден. Корень = " << root << "\n";
     return 0;
 }
+#endif
