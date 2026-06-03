@@ -1,0 +1,39 @@
+\doxysection{Main\+Window.\+h}
+\hypertarget{_main_window_8h_source}{}\label{_main_window_8h_source}\index{client/MainWindow.h@{client/MainWindow.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MAINWINDOW\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MAINWINDOW\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QTableWidget>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QLineEdit>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }MainWindow\ :\ \textcolor{keyword}{public}\ QMainWindow\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ MainWindow(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00015\ \ \ \ \ \string~MainWindow();}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ sendCommand();}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ onResponse(\textcolor{keyword}{const}\ QString\&\ response);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ onError(\textcolor{keyword}{const}\ QString\&\ error);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ openAdminDialog();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00024\ \ \ \ \ QTableWidget\ *historyTable;}
+\DoxyCodeLine{00025\ \ \ \ \ QLabel\ *statusLabel;}
+\DoxyCodeLine{00026\ \ \ \ \ QLineEdit\ *commandEdit;}
+\DoxyCodeLine{00027\ \ \ \ \ QPushButton\ *sendButton;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ addHistoryEntry(\textcolor{keyword}{const}\ QString\&\ command,\ \textcolor{keyword}{const}\ QString\&\ response);}
+\DoxyCodeLine{00029\ \ \ \ \ QPushButton*\ adminButton;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ addAdminButton();}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

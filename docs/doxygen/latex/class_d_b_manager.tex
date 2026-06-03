@@ -1,0 +1,76 @@
+\doxysection{DBManager Class Reference}
+\hypertarget{class_d_b_manager}{}\label{class_d_b_manager}\index{DBManager@{DBManager}}
+
+
+Класс для управления базой данных (Singleton).  
+
+
+
+
+{\ttfamily \+\#include $<$db\+\_\+manager.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_d_b_manager_a690c0002d53cd284db50bf276027a2ad}\label{class_d_b_manager_a690c0002d53cd284db50bf276027a2ad} 
+bool {\bfseries init} (const std::\+string \&db\+\_\+path="{}app.\+db"{})
+\item 
+bool \doxymbox{\hyperlink{class_d_b_manager_aa48aaceff67de6f13a959fd0ab620d4d}{register\+User}} (const std::\+string \&login, const std::\+string \&password\+\_\+hash)
+\begin{DoxyCompactList}\small\item\em Регистрирует нового пользователя. \end{DoxyCompactList}\item 
+\Hypertarget{class_d_b_manager_a2ddbe10528f7c97154b9c7b5678aae94}\label{class_d_b_manager_a2ddbe10528f7c97154b9c7b5678aae94} 
+bool {\bfseries login\+User} (const std::\+string \&login, const std::\+string \&password\+\_\+hash, int \&user\+\_\+id, std::\+string \&role)
+\item 
+\Hypertarget{class_d_b_manager_a2fa351e0becefd46805db31823ed534c}\label{class_d_b_manager_a2fa351e0becefd46805db31823ed534c} 
+std::\+vector$<$ std::\+tuple$<$ int, std::\+string, std::\+string $>$ $>$ {\bfseries get\+All\+Users} ()
+\item 
+\Hypertarget{class_d_b_manager_a17ab7e830578bd5e7409121616ca81eb}\label{class_d_b_manager_a17ab7e830578bd5e7409121616ca81eb} 
+bool {\bfseries delete\+User} (const std::\+string \&login)
+\item 
+\Hypertarget{class_d_b_manager_a16c77f9e6fe769b266ade6fd42fe5f7f}\label{class_d_b_manager_a16c77f9e6fe769b266ade6fd42fe5f7f} 
+bool {\bfseries set\+User\+Role} (const std::\+string \&login, const std::\+string \&new\+\_\+role)
+\item 
+\Hypertarget{class_d_b_manager_aeac2582658e0a68420ea7791a7730ffd}\label{class_d_b_manager_aeac2582658e0a68420ea7791a7730ffd} 
+bool {\bfseries is\+Admin} (const std::\+string \&login, const std::\+string \&password\+\_\+hash)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_d_b_manager_aa528411ddc3208128ac733c505a5724c}\label{class_d_b_manager_aa528411ddc3208128ac733c505a5724c} 
+static \doxymbox{\hyperlink{class_d_b_manager}{DBManager}} \& {\bfseries get\+Instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Класс для управления базой данных (Singleton). 
+
+Обеспечивает единую точку доступа к SQLite базе данных. Хранит информацию о пользователях и предоставляет методы для регистрации, аутентификации и управления ролями. 
+
+\label{doc-func-members}
+\Hypertarget{class_d_b_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_d_b_manager_aa48aaceff67de6f13a959fd0ab620d4d}\index{DBManager@{DBManager}!registerUser@{registerUser}}
+\index{registerUser@{registerUser}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{registerUser()}{registerUser()}}
+{\footnotesize\ttfamily \label{class_d_b_manager_aa48aaceff67de6f13a959fd0ab620d4d} 
+bool DBManager::\+register\+User (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{login}{, }\item[{const std::\+string \&}]{password\+\_\+hash}{}\end{DoxyParamCaption})}
+
+
+
+Регистрирует нового пользователя. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em login} & Логин пользователя. \\
+\hline
+{\em password\+\_\+hash} & Хэш пароля. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true если регистрация прошла успешно, false если логин уже существует. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+server/\+\doxymbox{\hyperlink{db__manager_8h}{db\+\_\+manager.\+h}}\item 
+server/\+db\+\_\+manager.\+cpp\end{DoxyCompactItemize}

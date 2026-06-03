@@ -1,0 +1,48 @@
+\doxysection{Client\+Core.\+h}
+\hypertarget{_client_core_8h_source}{}\label{_client_core_8h_source}\index{client/ClientCore.h@{client/ClientCore.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CLIENTCORE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CLIENTCORE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QTcpSocket>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }ClientCore\ :\ \textcolor{keyword}{public}\ QObject\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{static}\ ClientCore\&\ getInstance();}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ sendCommand(\textcolor{keyword}{const}\ QString\&\ cmd);}
+\DoxyCodeLine{00013\ \ \ \ \ QString\ getLastResponse()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ lastResponse;\ \}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ setCurrentRole(\textcolor{keyword}{const}\ QString\&\ role);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ setCurrentLogin(\textcolor{keyword}{const}\ QString\&\ login);}
+\DoxyCodeLine{00016\ \ \ \ \ QString\ getCurrentRole()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00017\ \ \ \ \ QString\ getCurrentLogin()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ isAdmin()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ setCurrentPassword(\textcolor{keyword}{const}\ QString\&\ password);}
+\DoxyCodeLine{00020\ \ \ \ \ QString\ getCurrentPassword()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ signals:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ responseReceived(\textcolor{keyword}{const}\ QString\&\ response);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ errorOccurred(\textcolor{keyword}{const}\ QString\&\ error);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ ClientCore();}
+\DoxyCodeLine{00028\ \ \ \ \ \string~ClientCore();}
+\DoxyCodeLine{00029\ \ \ \ \ ClientCore(\textcolor{keyword}{const}\ ClientCore\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00030\ \ \ \ \ ClientCore\&\ operator=(\textcolor{keyword}{const}\ ClientCore\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ QTcpSocket\ socket;}
+\DoxyCodeLine{00033\ \ \ \ \ QString\ lastResponse;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ onConnected();}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ onReadyRead();}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ onError(QAbstractSocket::SocketError);}
+\DoxyCodeLine{00037\ \ \ \ \ QString\ currentRole;}
+\DoxyCodeLine{00038\ \ \ \ \ QString\ currentLogin;}
+\DoxyCodeLine{00039\ \ \ \ \ QString\ currentPassword;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

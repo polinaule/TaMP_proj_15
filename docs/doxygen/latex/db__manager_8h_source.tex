@@ -1,0 +1,50 @@
+\doxysection{db\+\_\+manager.\+h}
+\hypertarget{db__manager_8h_source}{}\label{db__manager_8h_source}\index{server/db\_manager.h@{server/db\_manager.h}}
+\doxymbox{\hyperlink{db__manager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ DB\_MANAGER\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ DB\_MANAGER\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <sqlite3.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }DBManager\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Получение единственного экземпляра класса (синглтон)}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{static}\ DBManager\&\ getInstance();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Открытие базы данных\ и создание таблицы\ users\ (если не существует)}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ db\_path\ -\/\ путь к файлу\ базы данных\ (по умолчанию\ "{}app.db"{})}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ init(\textcolor{keyword}{const}\ std::string\&\ db\_path\ =\ \textcolor{stringliteral}{"{}app.db"{}});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_b_manager_aa48aaceff67de6f13a959fd0ab620d4d}{registerUser}}(\textcolor{keyword}{const}\ std::string\&\ login,\ \textcolor{keyword}{const}\ std::string\&\ password\_hash);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ Проверка учетных\ данных\ пользователя}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ При успехе возвращает true,\ а также заполняет user\_id\ и role}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ loginUser(\textcolor{keyword}{const}\ std::string\&\ login,\ \textcolor{keyword}{const}\ std::string\&\ password\_hash,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\&\ user\_id,\ std::string\&\ role);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Закрытие соединения\ с базой\ данных}}
+\DoxyCodeLine{00045\ \ \ \ \ \string~DBManager();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ Роли и админ-\/функции}}
+\DoxyCodeLine{00048\ \ \ \ \ std::vector<std::tuple<int,\ std::string,\ std::string>>\ getAllUsers();}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ deleteUser(\textcolor{keyword}{const}\ std::string\&\ login);}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ setUserRole(\textcolor{keyword}{const}\ std::string\&\ login,\ \textcolor{keyword}{const}\ std::string\&\ new\_role);}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{bool}\ isAdmin(\textcolor{keyword}{const}\ std::string\&\ login,\ \textcolor{keyword}{const}\ std::string\&\ password\_hash);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00054\ \ \ \ \ DBManager();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Приватный\ конструктор}}
+\DoxyCodeLine{00055\ \ \ \ \ DBManager(\textcolor{keyword}{const}\ DBManager\&)\ =\ \textcolor{keyword}{delete};\ \ \ \ \ \textcolor{comment}{//\ Запрет копирования}}
+\DoxyCodeLine{00056\ \ \ \ \ DBManager\&\ operator=(\textcolor{keyword}{const}\ DBManager\&)\ =\ \textcolor{keyword}{delete};\ \textcolor{comment}{//\ Запрет присваивания}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ sqlite3*\ db;\ \ \ \ \ \ \ \textcolor{comment}{//\ Указатель\ на объект\ базы данных\ SQLite}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_open;\ \ \ \ \ \ \textcolor{comment}{//\ Флаг:\ открыта\ ли база}}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
