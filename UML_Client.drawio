@@ -1,0 +1,79 @@
+<mxfile host="Electron">
+  <diagram name="Страница-1" id="mtDVi6rsbyelz2F6tH7C">
+    <mxGraphModel dx="981" dy="629" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YehusASv-RLpynTIcRMx-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="AdminDialog" vertex="1">
+          <mxGeometry height="240" width="190" x="440" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-2" parent="YehusASv-RLpynTIcRMx-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="&lt;div&gt;- table: QTableWidget&lt;/div&gt;&lt;div&gt;- refreshBtn: QPushButton&lt;/div&gt;&lt;div&gt;- deleteBtn: QPushButton&lt;/div&gt;&lt;div&gt;- roleBtn: QPushButton&lt;/div&gt;&lt;div&gt;- roleEdit: QLineEdit&lt;/div&gt;" vertex="1">
+          <mxGeometry height="94" width="190" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-3" parent="YehusASv-RLpynTIcRMx-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Verdana;fontSize=13;" value="" vertex="1">
+          <mxGeometry height="8" width="190" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-4" parent="YehusASv-RLpynTIcRMx-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="&lt;div&gt;- refreshUsers()&lt;/div&gt;&lt;div&gt;- deleteUser()&lt;/div&gt;&lt;div&gt;- changeRole()&lt;/div&gt;&lt;div&gt;- onResponse(response)&lt;/div&gt;&lt;div&gt;- loadUsers()&lt;/div&gt;&lt;div&gt;- updateTable(usersData)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="112" width="190" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-5" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="ClientCore" vertex="1">
+          <mxGeometry height="360" width="250" x="250" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-6" parent="YehusASv-RLpynTIcRMx-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="&lt;div&gt;- socket: QTcpSocket&lt;/div&gt;&lt;div&gt;- currentLogin: QString&lt;/div&gt;&lt;div&gt;- currentPassword: QString&lt;/div&gt;&lt;div&gt;- currentRole: QString&lt;/div&gt;&lt;div&gt;- lastResponse: QString&lt;/div&gt;" vertex="1">
+          <mxGeometry height="94" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-7" parent="YehusASv-RLpynTIcRMx-5" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Verdana;fontSize=13;" value="" vertex="1">
+          <mxGeometry height="8" width="250" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-8" parent="YehusASv-RLpynTIcRMx-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="&lt;div&gt;+ getInstance() : ClientCore&amp;amp;&lt;/div&gt;&lt;div&gt;+ sendCommand(cmd) : void&lt;/div&gt;&lt;div&gt;+ setCurrentLogin(login) : void&lt;/div&gt;&lt;div&gt;+ setCurrentPassword(pass) : void&lt;/div&gt;&lt;div&gt;+ setCurrentRole(role) : void&lt;/div&gt;&lt;div&gt;+ getCurrentLogin() : QString&lt;/div&gt;&lt;div&gt;+ getCurrentPassword() : QString&lt;/div&gt;&lt;div&gt;+ getCurrentRole() : QString&lt;/div&gt;&lt;div&gt;+ isAdmin() : bool&lt;/div&gt;&lt;div&gt;- responseReceived(response)&lt;/div&gt;&lt;div&gt;- errorOccurred(error)&lt;/div&gt;&lt;div&gt;- onConnected()&lt;/div&gt;&lt;div&gt;- onReadyRead()&lt;/div&gt;&lt;div&gt;- onError()&lt;/div&gt;" vertex="1">
+          <mxGeometry height="232" width="250" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-9" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="MainWindow" vertex="1">
+          <mxGeometry height="240" width="250" x="250" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-10" parent="YehusASv-RLpynTIcRMx-9" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="&lt;div&gt;- historyTable: QTableWidget&lt;/div&gt;&lt;div&gt;- statusLabel: QLabel&lt;/div&gt;&lt;div&gt;- commandEdit: QLineEdit&lt;/div&gt;&lt;div&gt;- sendButton: QPushButton&lt;/div&gt;&lt;div&gt;- adminButton: QPushButton&lt;/div&gt;" vertex="1">
+          <mxGeometry height="94" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-11" parent="YehusASv-RLpynTIcRMx-9" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Verdana;fontSize=13;" value="" vertex="1">
+          <mxGeometry height="8" width="250" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-12" parent="YehusASv-RLpynTIcRMx-9" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Verdana;fontSize=13;" value="&lt;div&gt;+ addHistoryEntry(cmd, resp) : void&lt;/div&gt;&lt;div&gt;- sendCommand()&lt;/div&gt;&lt;div&gt;- onResponse(response)&lt;/div&gt;&lt;div&gt;- onError(error)&lt;/div&gt;&lt;div&gt;- openAdminDialog()&lt;/div&gt;&lt;div&gt;- addAdminButton()&lt;/div&gt;" vertex="1">
+          <mxGeometry height="112" width="250" y="128" as="geometry" />
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-13" edge="1" parent="1" source="YehusASv-RLpynTIcRMx-12" style="endArrow=blockThin;startArrow=none;endFill=1;startFill=0;endSize=8;html=1;labelBackgroundColor=none;rounded=0;exitX=0.169;exitY=1.004;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.171;entryY=-0.002;entryDx=0;entryDy=0;entryPerimeter=0;" target="YehusASv-RLpynTIcRMx-5" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="480" y="340" as="sourcePoint" />
+            <mxPoint x="640" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-14" connectable="0" parent="YehusASv-RLpynTIcRMx-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Verdana;fontSize=13;fontStyle=1" value="uses" vertex="1">
+          <mxGeometry relative="1" x="-0.1969" y="-1" as="geometry">
+            <mxPoint x="-21" y="29" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-15" edge="1" parent="1" source="YehusASv-RLpynTIcRMx-4" style="endArrow=blockThin;startArrow=none;endFill=1;startFill=0;endSize=8;html=1;labelBackgroundColor=none;rounded=0;exitX=0.737;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.004;entryY=0.197;entryDx=0;entryDy=0;entryPerimeter=0;" target="YehusASv-RLpynTIcRMx-6" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="570.52" y="529.9979999999999" as="sourcePoint" />
+            <mxPoint x="499.48" y="595.9920000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-16" connectable="0" parent="YehusASv-RLpynTIcRMx-15" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Verdana;fontSize=13;fontStyle=1" value="uses" vertex="1">
+          <mxGeometry relative="1" x="-0.1969" y="-1" as="geometry">
+            <mxPoint x="22" y="9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-17" edge="1" parent="1" source="YehusASv-RLpynTIcRMx-12" style="endArrow=blockThin;startArrow=none;endFill=1;startFill=0;endSize=8;html=1;labelBackgroundColor=none;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" target="YehusASv-RLpynTIcRMx-1" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="302" y="260" as="sourcePoint" />
+            <mxPoint x="303" y="559" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YehusASv-RLpynTIcRMx-18" connectable="0" parent="YehusASv-RLpynTIcRMx-17" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Verdana;fontSize=13;fontStyle=1" value="creates" vertex="1">
+          <mxGeometry relative="1" x="-0.1969" y="-1" as="geometry">
+            <mxPoint x="38" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
